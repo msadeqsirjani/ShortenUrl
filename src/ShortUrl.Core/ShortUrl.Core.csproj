@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Cactus.Blade.OperationResult" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ShortUrl.Domain\ShortUrl.Domain.csproj" />
+    <ProjectReference Include="..\ShortUrl.Repository\ShortUrl.Repository.csproj" />
+  </ItemGroup>
+
+</Project>
