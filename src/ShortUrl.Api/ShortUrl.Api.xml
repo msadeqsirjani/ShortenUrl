@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ShortUrl.Api</name>
+    </assembly>
+    <members>
+        <member name="M:ShortUrl.Api.Controllers.ShortUrlController.Get(System.String)">
+            <summary>
+            انتقال دهنده به کوتاه کننده به صفحه مورد نظر
+            </summary>
+            <param name="shortCode">کد اختصاری سایت</param>
+            <returns></returns>
+        </member>
+        <member name="M:ShortUrl.Api.Controllers.ShortUrlController.Post(ShortUrl.Core.ViewModels.ShortenUrl)">
+            <summary>
+            کوتاه کننده لینک
+            </summary>
+            <param name="url">لینک سایت</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

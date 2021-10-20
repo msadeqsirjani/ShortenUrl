@@ -12,6 +12,9 @@ using ShortUrl.Domain;
 using ShortUrl.Domain.Interfaces;
 using ShortUrl.Repository.Persistence;
 using ShortUrl.Repository.Repositories;
+using System;
+using System.IO;
+using System.Reflection;
 
 namespace ShortUrl.Api
 {
@@ -40,9 +43,13 @@ namespace ShortUrl.Api
 
             services.Configure<AppSettings>(Configuration.GetSection("AppSetting"));
 
-            services.AddSwaggerGen(c =>
+            services.AddSwaggerGen(options =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ShortUrl", Version = "v1" });
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "ShortUrl", Version = "v1" });
+
+                var file = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var path = Path.Combine(AppContext.BaseDirectory, file);
+                options.IncludeXmlComments(path);
             });
         }
 
@@ -53,7 +60,12 @@ namespace ShortUrl.Api
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ShortUrl v1"));
+                app.UseSwaggerUI(options =>
+                {
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Short Url");
+                    options.RoutePrefix = "docs";
+                    options.DocumentTitle = "Shorten Url";
+                });
             }
 
             app.UseRouting();

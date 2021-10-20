@@ -52,7 +52,9 @@ namespace ShortUrl.Core.Services
         {
             var url = GetOriginalUrl(shortCode);
 
-            return url;
+            return string.IsNullOrEmpty(url)
+                ? Result.Error<string>(new MessageException("لینک مورد نظر موجود نمی باشد"))
+                : url;
         }
 
         private string GetOriginalUrl(string shortCode)
@@ -88,7 +90,7 @@ namespace ShortUrl.Core.Services
         {
             for (var @try = 0; @try < _numberOfTryIfDuplicateShortCode; @try++)
             {
-                var shortCodeLength = _serviceHelper.GetShortCodeLength(originalUrl).Value;
+                var shortCodeLength = ServiceHelper.GetShortCodeLength(originalUrl).Value;
                 var shortCode = ServiceHelper.GenerateShortCode(shortCodeLength).Value;
                 var urlInfo = _urlInfoRepository.GetUrlInfoWithShortCode(shortCode).Value;
 
@@ -101,7 +103,7 @@ namespace ShortUrl.Core.Services
 
         private string GetSuccessShortUrl(string originalUrl, string shortCode)
         {
-            var shortUrlBaseAddress = _serviceHelper.GetShortUrlBaseAddress(originalUrl).Value;
+            var shortUrlBaseAddress = ServiceHelper.GetShortUrlBaseAddress(originalUrl).Value;
             var shortUrl = $"{shortUrlBaseAddress}{shortCode}";
 
             return shortUrl;

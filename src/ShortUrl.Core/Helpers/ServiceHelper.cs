@@ -37,14 +37,14 @@ namespace ShortUrl.Core.Helpers
             return shortCode.ToString();
         }
 
-        public Result<int> GetShortCodeLength(string url)
+        public static Result<int> GetShortCodeLength(string url)
         {
             return url.Length > _shortCodeMaxLength
                 ? _shortCodeMaxLength
                 : url.Length - 1;
         }
 
-        public Result<string> GetShortUrlBaseAddress(string url)
+        public static Result<string> GetShortUrlBaseAddress(string url)
         {
             var baseAddress = url.StartsWith(Uri.UriSchemeHttps)
                 ? ShortUrlInfo.SecureDomain

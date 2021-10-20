@@ -20,6 +20,11 @@ namespace ShortUrl.Api.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// انتقال دهنده به کوتاه کننده به صفحه مورد نظر
+        /// </summary>
+        /// <param name="shortCode">کد اختصاری سایت</param>
+        /// <returns></returns>
         [HttpGet("{shortCode}")]
         public IActionResult Get(string shortCode)
         {
@@ -33,6 +38,11 @@ namespace ShortUrl.Api.Controllers
                 : GetFailedActionResult(exception);
         }
 
+        /// <summary>
+        /// کوتاه کننده لینک
+        /// </summary>
+        /// <param name="url">لینک سایت</param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult Post(ShortenUrl url)
         {
@@ -54,8 +64,8 @@ namespace ShortUrl.Api.Controllers
         {
             _logger.LogError(exception, exception.Message);
 
-            if (exception is MessageException message)
-                return BadRequest(message);
+            if (exception is MessageException ex)
+                return BadRequest(ex.Message);
             else
                 return new JsonResult("internal service error");
         }
